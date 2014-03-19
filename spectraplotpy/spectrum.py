@@ -1,6 +1,10 @@
 """ spectrum.py """
 
 import copy
+import matplotlib.pyplot as plt
+# pylint: disable=W0401
+from custom_exceptions import *
+
 
 
 class Spectrum(object):    
@@ -12,8 +16,6 @@ class Spectrum(object):
 #    def __str__(self):
 #        return 'spectum('self.dataset.metadata.filename))
 
-
-
     def __add__(self, other):
         """ adds two spectra, returns third spectrum """
         copied = self.copy()
@@ -23,11 +25,20 @@ class Spectrum(object):
 
 
     def add(self, other):
-        """ adds two spectra in place"""
-        self.dataset.y += other.dataset.y
+        """ 
+        adds two spectra in place
+        """
+        x_data = self.dataset.x
+        y_data = self.dataset.y
+        x1_data = other.dataset.x
+        y1_data = other.dataset.y
         
-
-
+        if len(y_data) == len(y1_data) and all(x_data == x1_data):
+            self.dataset.y += other.dataset.y
+        else:
+#            print("Array length don't match")
+            raise LengthError("Array length don't match")
+            
     
     def __sub__(self, other):
         """ substracs two spectra, returns third spectrum """
@@ -37,8 +48,20 @@ class Spectrum(object):
 
 
     def sub(self, other):
-        """ substracs two spectra in place"""
-        self.dataset.y -= other.dataset.y
+        """ 
+        substracs two spectra in place
+        """
+        x_data = self.dataset.x
+        y_data = self.dataset.y
+        x1_data = other.dataset.x
+        y1_data = other.dataset.y
+        
+        if len(y_data) == len(y1_data) and all(x_data == x1_data):
+            self.dataset.y -= other.dataset.y
+        else:
+#            print("Array length don't match")
+            raise LengthError("Array length don't match")
+            
             
             
             
