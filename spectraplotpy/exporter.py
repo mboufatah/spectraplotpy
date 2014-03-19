@@ -3,6 +3,7 @@
 from StringIO import StringIO
 import numpy as np
 
+
 class Exporter(object):
     """ Class Exporter """
     # pylint: disable=R0903
@@ -84,3 +85,11 @@ class AvivExporter(CSVExporter):
         return "_data_\n" + \
                super(AvivExporter, self).data_to_text() + \
                "\n_data_end"
+class BasePlotPGNExporter(Exporter):
+    """ Export Plot To PNG file from matplolib"""
+    
+    def plot(self, axis, *args, **kwargs):
+        """ Ploting Data """
+        fig = axis.plot(self.dataset.x, self.dataset.y, *args, **kwargs)
+        
+        
