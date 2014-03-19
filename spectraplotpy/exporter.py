@@ -2,7 +2,7 @@
 
 from StringIO import StringIO
 import numpy as np
-
+from pylab import savefig, title, plot, grid
 
 class Exporter(object):
     """ Class Exporter """
@@ -85,11 +85,18 @@ class AvivExporter(CSVExporter):
         return "_data_\n" + \
                super(AvivExporter, self).data_to_text() + \
                "\n_data_end"
-class BasePlotPGNExporter(Exporter):
+               
+class GraphicExporter(Exporter):
     """ Export Plot To PNG file from matplolib"""
-    
-    def plot(self, axis, *args, **kwargs):
+        
+    def plot(self, *args, **kwargs):
         """ Ploting Data """
-        fig = axis.plot(self.dataset.x, self.dataset.y, *args, **kwargs)
+        return plot(self.dataset.x, self.dataset.y, *args, **kwargs)
+    
+    def save(self, filename):
+        """" Saving file to PNG """
+        grid(True)
+        savefig(self.filename)
+        
         
         
