@@ -2,7 +2,7 @@
 
 from StringIO import StringIO
 import numpy as np
-from pylab import savefig, title, plot, grid
+from pylab import grid, savefig
 
 class Exporter(object):
     """ Class Exporter """
@@ -43,13 +43,6 @@ class BaseTextExporter(Exporter):
         with open(filename, 'w') as file_handler:
             self.write(file_handler, *args, **kwargs)
 
-class BasePlotExporter(Exporter):
-    """docstring for BasePlotExporter"""
-    # pylint: disable=R0903  
-    def plot(self, axis, *args, **kwargs):
-        """ plotting Data"""
-        axis.plot(self.dataset.x, self.dataset.y, *args, **kwargs)
-
 
 class CSVExporter(BaseTextExporter):
     """Saving to CSV file"""
@@ -87,16 +80,17 @@ class AvivExporter(CSVExporter):
                "\n_data_end"
                
 class GraphicExporter(Exporter):
-    """ Export Plot To PNG file from matplolib"""
+    """ Export Plot To PNG file from matplolib"""   
         
-    def plot(self, *args, **kwargs):
+    def plot(self, axis, *args, **kwargs):
         """ Ploting Data """
-        return plot(self.dataset.x, self.dataset.y, *args, **kwargs)
+        return axis.plot(self.dataset.x, self.dataset.y, *args, **kwargs)
     
-    def save(self, filename):
+    def save(self, file_handler):
         """" Saving file to PNG """
+        # pylint: disable=R0201
         grid(True)
-        savefig(self.filename)
+        savefig(file_handler)
         
         
         
