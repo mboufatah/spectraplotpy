@@ -18,7 +18,6 @@ from pylab import grid, savefig
 
 class Exporter(object):
     """ Class Exporter """
-    # pylint: disable=R0903
     def __init__(self, dataset):
         self.dataset = dataset
 
@@ -33,13 +32,11 @@ class BaseTextExporter(Exporter):
 
     def metadata_to_text(self):
         """This writes the metadata to a given file"""
-        # pylint: disable=R0201
         return "Meta data text"
 
 
     def data_to_text(self):
         """ This writes the data to a given file """
-        # pylint: disable=R0201
         return "Data text"
 
     def text(self):
@@ -116,9 +113,9 @@ class GraphicExporter(Exporter):
     
     def save(self, file_handler):
         """" Saving file to PNG """
-        # pylint: disable=R0201
         grid(True)
         savefig(file_handler)
+        
         
         
         
