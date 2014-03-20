@@ -131,5 +131,3 @@ class Spectrum(object):
             yerr=self.dataset.errors_y,
             *args, **kwargs
         )
-            self.dataset.errors_y, self.dataset.errors_x,
-            *args, **kwargs)
