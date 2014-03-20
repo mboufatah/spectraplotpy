@@ -8,7 +8,7 @@ from spectraplotpy import Exporter
 from spectraplotpy import BaseTextExporter
 from spectraplotpy import CSVExporter
 from spectraplotpy import AvivExporter
-from spectraplotpy import GraphicExporter
+#from spectraplotpy import GraphicExporter
 
 from spectraplotpy import Dataset
 
@@ -49,10 +49,5 @@ def test_csv_construction():
     assert CSVExporter(ds)
 
 
-def test_png_exporter():
-    ds = Dataset(x=[1, 2, 3], y=[1, 2, 3])
-    pne = GraphicExporter(ds)
-    assert pne.plot()
-    assert pne.save('pngexport.png') is None
 
 

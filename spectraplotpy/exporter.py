@@ -1,4 +1,16 @@
-""" Exporter Program """
+""" 
+Exporter classes : Exporting data to file
+
+Class BaseTextExporter is used as a template for exporting data to 
+differents file
+
+Class CSVExporter export Metada and Data to csv file
+
+Class AvivExporter export Metada and Data to aviv file
+
+Class GraphicExporter export Metada and Data to png file
+
+"""
 
 from StringIO import StringIO
 import numpy as np
@@ -54,8 +66,24 @@ class CSVExporter(BaseTextExporter):
     def data_to_text(self):
         """ This writes the data to a given csv file """
         strhandler = StringIO("")
-        np.savetxt(strhandler,
-                   np.column_stack((self.dataset.x, self.dataset.y)))
+        stack = np.column_stack((self.dataset.x, self.dataset.y))
+
+        if self.dataset.errors_y is not None:
+
+            if self.dataset.errors_x is not None:
+                try:
+                    np.column_stack((stack, self.dataset.errors_x))
+                except ValueError:
+                    error = self.dataset.errors_x * np.ones_like(self.dataset.x)
+                    np.column_stack((stack, error))
+
+            try:
+                np.column_stack((stack, self.dataset.errors_y))
+            except ValueError:
+                error = self.dataset.error_y * np.ones_like(self.dataset.y)
+                np.column_stack((stack, error))
+
+        np.savetxt(strhandler, stack)
         strhandler.seek(0)
         return strhandler.read()
         
